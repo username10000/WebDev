@@ -18,6 +18,8 @@
 				
 				if (empty($username) || empty($password))
 				{
+					echo "<div style = \"width: 100%; text-align: center; padding-top: 200px; color: red;\">";
+					
 					echo "Please enter a Username and a Password.";
 				}
 				else
@@ -25,10 +27,14 @@
 					$db = mysql_connect('localhost', 'root', '') or die(mysql_error());
 					mysql_select_db("Assignment") or die(mysql_error());
 					$result = mysql_query("SELECT Username, Password FROM Users");
+					
 					while ($row = mysql_fetch_row($result))
 					{
+						$success = true;
 						if (($row[0] == $username) && ($row[1] == $password))
 						{
+							echo "<div style = \"width: 100%; text-align: center; padding-top: 200px; color: green;\">";
+							
 							session_start();
 							$_SESSION['username'] = $username;
 							$_SESSION['password'] = $password;
@@ -36,10 +42,18 @@
 							break;
 						}
 						else
-							echo "NOT OK";
+							$success = false;
+					}
+					
+					if (!$success)
+					{
+						echo "<div style = \"width: 100%; text-align: center; padding-top: 200px; color: red;\">";
+						
+						echo "Invalid Username or Password";
 					}
 				}
 				
+				echo "</div>";
 			?>
 		</div>
 	

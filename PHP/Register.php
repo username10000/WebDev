@@ -16,7 +16,7 @@
 				<h2>Register</h2>
 				<form action="../PHP/RegisterVerify.php" method="POST">
 					<p>
-						<input type="text" name="firstName" placeholder="First name">
+						<input type="text" name="firstName" placeholder="First name" autofocus>
 						<input type="text" name="lastName" placeholder="Last name">
 					</p>
 					<p>

@@ -14,7 +14,7 @@
 		<div id="content">
 			
 			<?php
-				//Verify Username, Password, Telephone, Mobile number
+				// Register thingy
 			?>
 		
 		</div>

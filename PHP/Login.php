@@ -17,15 +17,11 @@
 				<h2>Login</h2>
 				<form action = "../PHP/LoginVerify.php" method = "POST">
 					<p>
-						Username
-						<br>
-						<input type="text" name="username" autofocus>
+						<input type="text" name="username" placeholder="Username" autofocus>
 					</p>
 					
 					<p>
-						Password
-						<br>
-						<input type="password" name="password">
+						<input type="password" name="password" placeholder="Password">
 					</p>
 
 					<p> <input type="Submit"> </p>
