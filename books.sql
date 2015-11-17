@@ -1,0 +1,15 @@
+INSERT INTO `books` (`ISBN`, `BookTitle`, `Author`, `Edition`, `Year`, `Category`, `Reserved`) VALUES
+('093-403992', 'Computers in Business', 'Alicia Oneill', 3, 1997, '003', 'N'),
+('23472-8729', 'Exploring Pery', 'Stephanie Birchi', 4, 2005, '005', 'N'),
+('237-4823', 'Business Strategy', 'Joe Peppard', 2, 2002, '002', 'N'),
+('23u8-92384', 'A guide to nutrition', 'John Thrope', 2, 1997, '001', 'N'),
+('2983-3494', 'Cooking for children', 'Anabelle Sharpe', 1, 2003, '007', 'N'),
+('82n8-308', 'Computers for idiots', 'Susan O''Neill', 5, 1998, '004', 'N'),
+('9823-23984', 'My life in picture', 'Kevin Graham', 8, 2004, '001', 'N'),
+('9823-2403-0', 'DaVinci Code', 'Dan Brown', 1, 2003, '008', 'N'),
+('98234-029384', 'My ranch in Texas', 'George Bush', 1, 2005, '001', 'Y'),
+('9823-98345', 'How to cook Italian food', 'Jamie Oliver', 2, 2005, '007', 'Y'),
+('9823-98487', 'Optimising your business', 'Cleo Blair', 1, 2001, '002', 'N'),
+('988745-234', 'Tara Riad', 'Maeve Binchy', 4, 2002, '008', 'N'),
+('993-004-00', 'My life in bits', 'John Smith', 1, 2001, '001', 'N'),
+('9987-0039882', 'Shooting History', 'Jon Snow', 1, 2003, '001', 'N');

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Library</title>
+	<title>Library - Login</title>
 	<link type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
 	<link rel="stylesheet" type="text/css" href="../CSS/mystyle.css">
 </head>
@@ -18,7 +18,8 @@
 				
 				if (empty($username) || empty($password))
 				{
-					echo "<div style = \"width: 100%; text-align: center; padding-top: 200px; color: red;\">";
+					//echo "<div style = \"width: 100%; text-align: center; padding-top: 200px; color: red;\">";
+					echo '<div class = "error">';
 					
 					echo "Please enter a Username and a Password.";
 				}
@@ -33,7 +34,7 @@
 						$success = true;
 						if (($row[0] == $username) && ($row[1] == $password))
 						{
-							echo "<div style = \"width: 100%; text-align: center; padding-top: 200px; color: green;\">";
+							echo '<div class = "success">';
 							
 							session_start();
 							$_SESSION['username'] = $username;
@@ -47,10 +48,12 @@
 					
 					if (!$success)
 					{
-						echo "<div style = \"width: 100%; text-align: center; padding-top: 200px; color: red;\">";
+						echo '<div class = "error">';
 						
 						echo "Invalid Username or Password";
 					}
+					
+					mysql_close($db);
 				}
 				
 				echo "</div>";

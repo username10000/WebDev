@@ -19,6 +19,7 @@ CREATE TABLE Books (
     BookTitle VARCHAR(50),
     Author VARCHAR(60),
     Edition INT,
+	Year INT,
     Category VARCHAR(3),
     Reserved CHAR(1)
 );

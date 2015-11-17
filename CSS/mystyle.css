@@ -146,3 +146,17 @@ input {
 	height: 30px;
 	width: 408px;
 }
+
+.error, .success {
+	width: 100%; 
+	text-align: center; 
+	padding-top: 200px; 	
+}
+
+.error {
+	color: red;
+}
+
+.success {
+	color: green;
+}

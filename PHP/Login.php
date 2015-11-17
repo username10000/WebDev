@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Library</title>
+	<title>Library - Login</title>
 	<link type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
 	<link rel="stylesheet" type="text/css" href="../CSS/mystyle.css">
 </head>
