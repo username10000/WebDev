@@ -50,9 +50,8 @@
 						}
 						else
 						{
-							// Verify if the username is unique
-							$db = mysql_connect('localhost', 'root', '') or die(mysql_error());
-							mysql_select_db("Assignment") or die(mysql_error());
+							// Connect to the database
+							require_once("db.php");
 							$result = mysql_query("SELECT Username FROM Users");
 							
 							$success = true;
@@ -65,6 +64,7 @@
 								}
 							}
 							
+							// Verify if the username is unique
 							if (!$success)
 							{
 								echo '<div class = "error">';
@@ -73,8 +73,6 @@
 							else
 							{
 								// Insert the user's information in the database
-								require_once "db.php";
-								
 								$sql = "INSERT INTO Users (Username, Password, FirstName, Surname, AddressLine, City, Telephone, Mobile)
 										VALUES ('$username', '$password', '$first', '$last', '$address', '$city', '$telephone', '$mobile')";
 								

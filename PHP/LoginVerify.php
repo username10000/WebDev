@@ -13,9 +13,19 @@
 		
 		<div id="content">
 			<?php
+				// Reset the session
+				session_start();
+				if (isset($_SESSION))
+				{
+					$_SESSION['username'] = "";
+					$_SESSION['password'] = "";
+				}
+			
+				// Get the inputed username and password
 				$username = $_POST["username"];
 				$password = $_POST["password"];
 				
+				// Verify if the fields are empty
 				if (empty($username) || empty($password))
 				{
 					//echo "<div style = \"width: 100%; text-align: center; padding-top: 200px; color: red;\">";
@@ -25,8 +35,8 @@
 				}
 				else
 				{
-					$db = mysql_connect('localhost', 'root', '') or die(mysql_error());
-					mysql_select_db("Assignment") or die(mysql_error());
+					// Connect to the database
+					require_once("db.php");
 					$result = mysql_query("SELECT Username, Password FROM Users");
 					
 					while ($row = mysql_fetch_row($result))
@@ -36,7 +46,6 @@
 						{
 							echo '<div class = "success">';
 							
-							session_start();
 							$_SESSION['username'] = $username;
 							$_SESSION['password'] = $password;
 							echo "Hello " . $_SESSION['username'] . "!";
@@ -46,6 +55,7 @@
 							$success = false;
 					}
 					
+					// Verify if the username and password exist
 					if (!$success)
 					{
 						echo '<div class = "error">';

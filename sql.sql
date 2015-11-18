@@ -15,7 +15,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Books (
-	ISBN VARCHAR(13),
+	ISBN VARCHAR(13) PRIMARY KEY,
     BookTitle VARCHAR(50),
     Author VARCHAR(60),
     Edition INT,
