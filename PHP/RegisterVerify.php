@@ -21,6 +21,7 @@
 				$password = mysql_real_escape_string($_POST['password']);
 				$passwordConfirm = mysql_real_escape_string($_POST['passwordConfirm']);
 				$address = mysql_real_escape_string($_POST['address']);
+				$address2 = mysql_real_escape_string($_POST['address2']);
 				$city = mysql_real_escape_string($_POST['city']);
 				$telephone = mysql_real_escape_string($_POST['telephone']);
 				$mobile = mysql_real_escape_string($_POST['mobile']);
@@ -73,8 +74,8 @@
 							else
 							{
 								// Insert the user's information in the database
-								$sql = "INSERT INTO Users (Username, Password, FirstName, Surname, AddressLine, City, Telephone, Mobile)
-										VALUES ('$username', '$password', '$first', '$last', '$address', '$city', '$telephone', '$mobile')";
+								$sql = "INSERT INTO Users (Username, Password, FirstName, Surname, AddressLine1, AddressLine2, City, Telephone, Mobile)
+										VALUES ('$username', '$password', '$first', '$last', '$address', '$address2', '$city', '$telephone', '$mobile')";
 								
 								if (mysql_query($sql))
 								{

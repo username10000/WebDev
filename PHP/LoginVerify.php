@@ -47,7 +47,6 @@
 							echo '<div class = "success">';
 							
 							$_SESSION['username'] = $username;
-							$_SESSION['password'] = $password;
 							echo "Hello " . $_SESSION['username'] . "!";
 							break;
 						}

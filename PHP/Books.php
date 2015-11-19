@@ -12,24 +12,10 @@
 
 		<?php include "../HTML/Header.html"; ?>
 		
+		<?php include "../PHP/Username.php"; ?>
+		
 		<div id="content">
-			<!--
-			<div class = "record">
-				<div class = "left"> 
-					<span class = "title"> Business Strategy </span> <span class = "author"> by Joe Peppard </span>
-					<br>
-					Sci-Fi | 1998 | 3rd Edition
-				</div>
-				
-				<div class = "right">
-					<button> Reserve </button>
-				</div>
-			</div>			
-			<br>-->
 			<?php
-			require_once("db.php");
-			session_start();
-			
 			// Get the page number if it exists
 			if (isset($_GET['page']))
 			{
@@ -41,91 +27,95 @@
 			}
 			
 			// Check if the user is logged in
-			if ( empty($_SESSION['username']) || empty($_SESSION['password']) )
+			if ( empty($_SESSION['username']) )
 			{
-				echo '<div class = "error">';
-				echo "Please Login!";
+				echo '<div class = "error" style = "margin-top: -120px">';
+				echo "Access Denied!";
+				echo "<br>";
+				echo '<form action = "Login.php">';
+					echo '<button> Login </button>';
+				echo '</form>';
 				echo '</div>';
 			}
 			else
 			{
+				require_once("db.php");
+				
 				// Display all the books available
 				$username = $_SESSION['username'];
-				$password = $_SESSION['password'];
 				
-				$result = mysql_query("SELECT ISBN, BookTitle, Author, Edition, Year, Category, Reserved FROM Books");
+				// SQL to return all the book records
+				$result = mysql_query("SELECT b.ISBN, b.BookTitle, b.Author, b.Edition, b.Year, c.CategoryDescription, b.Reserved 
+									   FROM Books b JOIN Categories c ON(b.Category = c.CategoryID)");
 			
 				// Put the books into a 2D array
 				while ($row = mysql_fetch_row($result))
 				{
+					/*
 					for ($i = 0 ; $i < 7 ; $i++)
 					{
-						$temp[$i] = htmlentities($row[$i]);
-					}
+						$temp[$i] = htmlentities($row[$i];
+					}*/
+					
+					$temp['ISBN'] = htmlentities($row[0]);
+					$temp['Title'] = htmlentities($row[1]);
+					$temp['Author'] = htmlentities($row[2]);
+					$temp['Edition'] = htmlentities($row[3]);
+					$temp['Year'] = htmlentities($row[4]);
+					$temp['Category'] = htmlentities($row[5]);
+					$temp['Reserved'] = htmlentities($row[6]);
+					
 					$books[] = $temp;
 				}
 				
 				// Print the array (5 per page)
-				//echo '<table class = "tableStyle">'."\n";
-				
 				for ($i = $pageNo * 5 ; ($i < $pageNo * 5 + 5) && !empty($books[$i]) ; $i++)
 				{
-					// *** Change to divs
-					//echo '<tr>';
 					echo '<div class = "record">';
-					echo '<div class = "left">';
-						echo '<br>';
-						echo '<span class = "title">'; 
-						echo $books[$i][1];
-						echo '</span>'; 
-						echo '<span class = "author">'; 
-						echo ' by '.$books[$i][2]; 
-						echo '</span>';
-						echo '<br>';
-						echo $books[$i][5]." | ".$books[$i][4]." | ";
-						switch($books[$i][3])
-						{
-							case 1:
+						echo '<div class = "left">';
+							echo '<br>';
+							echo '<span class = "title">'; 
+							echo $books[$i]['Title'];
+							echo '</span>'; 
+							echo '<span class = "author">'; 
+							echo ' by '.$books[$i]['Author']; 
+							echo '</span>';
+							echo '<br>';
+							echo $books[$i]['Category']." | ".$books[$i]['Year']." | ";
+							switch($books[$i]['Edition'])
 							{
-								echo '1st';
-								break;
+								case 1:
+								{
+									echo '1st';
+									break;
+								}
+								case 2:
+								{
+									echo '2nd';
+									break;
+								}
+								case 3:
+								{
+									echo '3rd';
+									break;
+								}
+								default:
+								{
+									echo $books[$i]['Edition'].'th';
+								}
 							}
-							case 2:
+							echo ' Edition';
+						echo '</div>';
+						echo '<div class = "right">';
+							if ($books[$i]['Reserved'] == 'N')
 							{
-								echo '2nd';
-								break;
+								echo '<button name = "ISBN" value="'.$books[$i]['ISBN'].'" class = "reserve" onclick = "confirmReservation(this.value, '.$pageNo.')"> Reserve </button>';
 							}
-							case 3:
-							{
-								echo '3rd';
-								break;
-							}
-							default:
-							{
-								echo $books[$i][3].'th';
-							}
-						}
-						echo ' Edition';
-					echo '</div>';
-					echo '<div class = "right">';
-						if ($books[$i][6] == 'Y')
-							echo '<button class = "reserve"> Reserve </button>';
-						else
-							echo '<button class = "notAvailable" disabled> Not Available </button>';
-					echo '</div>';
-					/*
-					for ($j = 0 ; $j < count($books[0]) ; $j++)
-					{
-						//echo '<td>';
-						echo $books[$i][$j];
-						//echo '</td>';
-					}
-					*/
-					//echo '</tr>';
+							else
+								echo '<button class = "notAvailable" disabled> Not Available </button>';
+						echo '</div>';
 					echo '</div>';
 				}
-				
-				//echo '</table>';
 				
 				// Create form with two buttons that has the value of the next or previous page
 				echo '<form type = "GET">';
@@ -138,18 +128,25 @@
 						echo '<button name = "page" value = '.($pageNo + 1).' class = "rightArrow"> > </button>';
 					}
 				echo '</form>';
+				mysql_close($db);
 			}
-
-			mysql_close($db);
 			?>
-			
-				
-			
 		</div>
 		
 		<?php include "../HTML/Footer.html"; ?>
 	
 	</div>
+	
+<script type = "text/javascript">
+	// Create a confirmation popup window
+	function confirmReservation(value, page)
+	{
+		var answer = confirm("Are you sure you want to reserve it?");
+		if (answer)
+			window.location.href = "ReserveBook.php?ISBN=" + value + "&page=" + page;
+	}
+</script>
+	
 </body>
 
 </html>

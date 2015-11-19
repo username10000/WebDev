@@ -4,11 +4,12 @@ DROP TABLE Categories;
 DROP TABLE Reservations;
 
 CREATE TABLE Users (
-	Username VARCHAR(50), 
+	Username VARCHAR(50) PRIMARY KEY, 
 	Password VARCHAR(50),
 	FirstName VARCHAR(30),
     Surname VARCHAR(30),
-    AddressLine VARCHAR(50),
+    AddressLine1 VARCHAR(50),
+	AddressLine2 VARCHAR(50),
     City VARCHAR(20),
     Telephone INT,
     Mobile INT
@@ -25,7 +26,7 @@ CREATE TABLE Books (
 );
 
 CREATE TABLE Categories (
-	CategoryID VARCHAR(3),
+	CategoryID VARCHAR(3) PRIMARY KEY,
     CategoryDescription VARCHAR(50)
 );
 
