@@ -13,6 +13,19 @@
 		<?php include "../HTML/Header.html"; ?>
 		
 		<div id="content">
+			<!--
+			<div class = "record">
+				<div class = "left"> 
+					<span class = "title"> Business Strategy </span> <span class = "author"> by Joe Peppard </span>
+					<br>
+					Sci-Fi | 1998 | 3rd Edition
+				</div>
+				
+				<div class = "right">
+					<button> Reserve </button>
+				</div>
+			</div>			
+			<br>-->
 			<?php
 			require_once("db.php");
 			session_start();
@@ -53,30 +66,76 @@
 				}
 				
 				// Print the array (5 per page)
-				echo '<table class = "tableStyle">'."\n";
+				//echo '<table class = "tableStyle">'."\n";
+				
 				for ($i = $pageNo * 5 ; ($i < $pageNo * 5 + 5) && !empty($books[$i]) ; $i++)
 				{
 					// *** Change to divs
-					echo '<tr>';
+					//echo '<tr>';
+					echo '<div class = "record">';
+					echo '<div class = "left">';
+						echo '<br>';
+						echo '<span class = "title">'; 
+						echo $books[$i][1];
+						echo '</span>'; 
+						echo '<span class = "author">'; 
+						echo ' by '.$books[$i][2]; 
+						echo '</span>';
+						echo '<br>';
+						echo $books[$i][5]." | ".$books[$i][4]." | ";
+						switch($books[$i][3])
+						{
+							case 1:
+							{
+								echo '1st';
+								break;
+							}
+							case 2:
+							{
+								echo '2nd';
+								break;
+							}
+							case 3:
+							{
+								echo '3rd';
+								break;
+							}
+							default:
+							{
+								echo $books[$i][3].'th';
+							}
+						}
+						echo ' Edition';
+					echo '</div>';
+					echo '<div class = "right">';
+						if ($books[$i][6] == 'Y')
+							echo '<button class = "reserve"> Reserve </button>';
+						else
+							echo '<button class = "notAvailable" disabled> Not Available </button>';
+					echo '</div>';
+					/*
 					for ($j = 0 ; $j < count($books[0]) ; $j++)
 					{
-						echo '<td>';
+						//echo '<td>';
 						echo $books[$i][$j];
-						echo '</td>';
+						//echo '</td>';
 					}
-					echo '</tr>';
+					*/
+					//echo '</tr>';
+					echo '</div>';
 				}
-				echo '</table>';
+				
+				//echo '</table>';
 				
 				// Create form with two buttons that has the value of the next or previous page
 				echo '<form type = "GET">';
 					if ( $pageNo != 0 )
 					{
-						echo '<button name = "page" value = '.($pageNo - 1).'> < </button>';
+						echo '<button name = "page" value = '.($pageNo - 1).' class = "leftArrow"> < </button>';
 					}
 					if ( (($pageNo+1) * 5) < count($books) )
 					{
-						echo '<button name = "page" value = '.($pageNo + 1).'> > </button>';
+						echo '<button name = "page" value = '.($pageNo + 1).' class = "rightArrow"> > </button>';
 					}
 				echo '</form>';
 			}
