@@ -49,8 +49,14 @@
 					
 					$books[] = $temp;
 				}
+				if (!isset($books))
+				{	
+					echo '<h3 style = "text-align: center">You don\'t have any reservations.</h3>';
+				}
+				else
+				{
 				
-				// Print the array (5 per page)
+					// Print the array (5 per page)
 					for ($i = $pageNo * 5 ; ($i < $pageNo * 5 + 5) && !empty($books[$i]) ; $i++)
 					{
 						echo '<div class = "record">';
@@ -90,7 +96,7 @@
 							echo '</div>';
 							echo '<div class = "right">';
 									//*** Doesn't work
-									echo '<button name = "ISBN" value="'.$books[$i]['ISBN'].'" class = "reserve" onclick="window.location.href=Reservations.php?ISBN=this.value"> Return </button>';
+									echo '<button name = "ISBN" value="'.$books[$i]['ISBN'].'" class = "reserve" onclick="confirmReturn(this.value, '.$pageNo.')"> Return </button>';
 							echo '</div>';
 						echo '</div>';
 					}
@@ -107,31 +113,6 @@
 						}
 					echo '</form>';
 					mysql_close($db);
-			?>
-			
-			<?php
-				if (isset($_GET['ISBN']))
-				{
-					$ISBN = $_GET['ISBN'];
-					
-					require_once("db.php");
-					
-					$sql = "DELETE FROM Reservations
-							WHERE ISBN = '$ISBN'";
-								
-					if (mysql_query($sql))
-					{
-						$sql = "UPDATE Books
-								SET Reserved = 'N'
-								WHERE ISBN = '$ISBN'";
-								
-						mysql_query($sql);
-					}
-					mysql_close($db);
-					
-					header("Location: ../PHP/Reservations.php");
-					
-					//***Script to add the parameter
 				}
 			?>
 		</div>
@@ -139,6 +120,17 @@
 		<?php include "../HTML/Footer.html"; ?>
 	
 	</div>
+	
+<script type = "text/javascript">
+	// Create a confirmation popup window
+	function confirmReturn(value, page)
+	{
+		var answer = confirm("Are you sure you want to return it?");
+		if (answer)
+			window.location.href = "Return.php?ISBN=" + value + "&page=" + page;
+	}
+</script>
+
 </body>
 
 </html>
