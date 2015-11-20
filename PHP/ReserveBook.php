@@ -21,8 +21,10 @@
 	
 	mysql_close($db);
 	
-	if (!empty($title) && !empty($author))
-		header("Location: ../PHP/Books.php?bookTitle=".$title."&bookAuthor=".$author."&page=".$page);
+	echo $title.$author;
+	
+	if (!empty($title) || !empty($author))
+		header("Location: ../PHP/Search.php?bookTitle=".$title."&bookAuthor=".$author."&page=".$page);
 	else
 		header("Location: ../PHP/Books.php?page=".$page);
 ?>

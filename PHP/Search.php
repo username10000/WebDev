@@ -76,6 +76,7 @@
 					// SQL to return all the book records
 					$result = mysql_query("SELECT b.ISBN, b.BookTitle, b.Author, b.Edition, b.Year, c.CategoryDescription, b.Reserved 
 										   FROM Books b JOIN Categories c ON(b.Category = c.CategoryID)");
+					// ***Make this using SQL
 										   
 					// Put the books into a 2D array
 					while ($row = mysql_fetch_row($result))
@@ -171,7 +172,7 @@
 	{
 		var answer = confirm("Are you sure you want to reserve it?");
 		if (answer)
-			window.location.href = "ReserveBook.php?ISBN=" + value + "&page=" + page;
+			window.location.href = "ReserveBook.php" + window.location.search + "&ISBN=" + value;
 	}
 </script>
 
