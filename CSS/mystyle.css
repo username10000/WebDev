@@ -231,6 +231,7 @@ input{
 
 .leftArrow, .rightArrow {
 	cursor: pointer;
+	margin-top: 10px;
 }
 
 .user {
