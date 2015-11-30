@@ -50,6 +50,16 @@
 					}
 					else
 					{
+						// Check if there are any books to display on the page
+						if (count($books) < $pageNo * 5 + 1)
+						{
+							$pageNo--;
+							
+							if ($pageNo == -1)
+								$pageNo = 0;
+							header("Location: Reservations.php?page=".$pageNo);
+						}
+						
 						// Print the books array
 						printBooks($pageNo, $books, "Return");
 						
