@@ -5,6 +5,7 @@
 	$page = $_GET['page'];
 	$title = $_GET['bookTitle'];
 	$author = $_GET['bookAuthor'];
+	$category = $_GET['category'];
 	
 	require_once("db.php");
 	$sql = "INSERT INTO Reservations (ISBN, Username, ReservedDate)
@@ -23,8 +24,8 @@
 	
 	echo $title.$author;
 	
-	if (!empty($title) || !empty($author))
-		header("Location: ../PHP/Search.php?bookTitle=".$title."&bookAuthor=".$author."&page=".$page);
+	if (!empty($title) || !empty($author) || !empty($category))
+		header("Location: ../PHP/Search.php?bookTitle=".$title."&bookAuthor=".$author."&page=".$page."&category=".$category);
 	else
 		header("Location: ../PHP/Books.php?page=".$page);
 ?>

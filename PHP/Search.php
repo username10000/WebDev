@@ -27,13 +27,35 @@
 					<input type = "hidden" name = "page" value = "0">
 					<input type = "text" id = "bookTitle" name = "bookTitle" placeholder = "Title" autofocus>
 					<input type = "text" id = "bookAuthor" name = "bookAuthor" placeholder = "Author">
+					<select name = "category">
+						<option value="">All</option>
+						<?php
+							// Open the database
+							require_once("db.php");
+							$result = mysql_query("SELECT * FROM Categories");
+							
+							// Create the drop down category list
+							while($row = mysql_fetch_row($result))
+							{
+								echo "<option value=$row[0]";
+								
+								// Select the category
+								if ((isset($_GET['category']) && ($row[0] == $_GET['category'])))
+								{
+									echo " selected ";
+								}
+								
+								echo ">$row[1]</option>";
+							}
+						?>
+					</select>
 					<input type = "submit" id = "searchSubmit">
 				</form>
 				<br>
 			<?php } ?>
 			
 			<?php
-				if ( isset($_GET['bookTitle']) || isset($_GET['bookAuthor']) )
+				if ( isset($_GET['bookTitle']) || isset($_GET['bookAuthor']) || isset($_GET['category']) )
 				{	
 					// External PHP
 					require_once("Functions.php");
@@ -64,14 +86,13 @@
 					{
 						$bookAuthor = "";
 					}
-
-					// Open the database
-					require_once("db.php");
+					
+					$category = $_GET['category'];
 					
 					// SQL to get all the books that contain the searched title and/or author
 					$sql = "SELECT b.ISBN, b.BookTitle, b.Author, b.Edition, b.Year, c.CategoryDescription, b.Reserved 
 							FROM Books b JOIN Categories c ON(b.Category = c.CategoryID)
-							WHERE b.bookTitle LIKE '%$bookTitle%' AND b.Author LIKE '%$bookAuthor%'";
+							WHERE b.bookTitle LIKE '%$bookTitle%' AND b.Author LIKE '%$bookAuthor%' AND c.categoryID LIKE '%$category%'";
 					
 					// Read the data into the variable books
 					readData($sql, $books);

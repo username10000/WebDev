@@ -241,13 +241,18 @@ input{
 }
 
 #bookTitle {
-	width: 400px;
+	width: 350px;
 }
 
 #bookAuthor {
-	width: 400px;
+	width: 350px;
 }
 
 #searchSubmit {
 	width: 83px;
+}
+
+select {
+	width: 95px;
+	height: 30px;
 }
