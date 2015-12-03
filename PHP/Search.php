@@ -28,7 +28,7 @@
 					<input type = "text" id = "bookTitle" name = "bookTitle" placeholder = "Title" autofocus>
 					<input type = "text" id = "bookAuthor" name = "bookAuthor" placeholder = "Author">
 					<select name = "category">
-						<option value="">All</option>
+						<option value="">Category</option>
 						<?php
 							// Open the database
 							require_once("db.php");
@@ -87,7 +87,14 @@
 						$bookAuthor = "";
 					}
 					
-					$category = $_GET['category'];
+					if (isset($_GET['category']))
+					{
+						$category = $_GET['category'];
+					}
+					else
+					{
+						$category = "";
+					}
 					
 					// SQL to get all the books that contain the searched title and/or author
 					$sql = "SELECT b.ISBN, b.BookTitle, b.Author, b.Edition, b.Year, c.CategoryDescription, b.Reserved 
@@ -104,6 +111,7 @@
 					echo '<form type = "GET">';
 						echo '<input type = "hidden" name = "bookTitle" value = "'.$bookTitle.'">';
 						echo '<input type = "hidden" name = "bookAuthor" value = "'.$bookAuthor.'">';
+						echo '<input type = "hidden" name = "category" value = "'.$category.'">';
 						if ( $pageNo != 0 )
 						{
 							echo '<button name = "page" value = '.($pageNo - 1).' class = "leftArrow"> < </button>';

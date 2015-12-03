@@ -221,6 +221,10 @@ input{
 	cursor: default;
 }
 
+.reserve, .notAvailable {
+	border-radius: 5px;
+}
+
 .leftArrow {
 	float: left;
 }
@@ -232,6 +236,13 @@ input{
 .leftArrow, .rightArrow {
 	cursor: pointer;
 	margin-top: 10px;
+	background-color: #2C3E50;
+	border: 0;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: #FFFFFF;
 }
 
 .user {

@@ -26,7 +26,6 @@
 				// Verify if the fields are empty
 				if (empty($username) || empty($password))
 				{
-					//echo "<div style = \"width: 100%; text-align: center; padding-top: 200px; color: red;\">";
 					echo '<div class = "error">';
 					echo "Please enter a Username and a Password.";
 					echo "</div>";
@@ -75,6 +74,7 @@
 			}
 			else 
 			{
+				// Display the login page
 				session_start();
 				if (empty($_SESSION['username'])) { ?>
 					<div id="login">
